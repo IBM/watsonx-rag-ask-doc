@@ -1,0 +1,50 @@
+directories:
+  data_directory: data/docs
+  data_directory_2: data/docs_2
+  persist_directory: data/vectordb/processed/chroma/
+  custom_persist_directory: data/vectordb/uploaded/chroma/
+
+llm_config:
+    llm_system_role: "You are a chatbot. You'll receive a prompt that includes a chat history, retrieved content from the vectorDB based on the user's question, and the source.\ 
+    Your task is to respond to the user's new question using the information from the vectorDB without relying on your own knowledge.\
+    you will receive a prompt with the the following format:
+
+    # Chat history:\n
+    [user query, response]\n\n
+
+    # Retrieved content number:\n
+    Content\n\n
+    Source\n\n
+
+    # User question:\n
+    New question
+    "
+    temperature: 0.2
+    max_token: 2040
+    genai_api_key: pak-VcI5V05aaf42FbLqO7Fc6FR7KFSz2Gmap97DO1y3-I8
+    genai_model_id: meta-llama/llama-3-70b-instruct
+
+summarizer_config:
+    max_final_token: 2040
+    character_overlap: 100
+    token_threshold: 50
+    summarizer_llm_system_role: "You are an expert text summarizer. You will receive a text and your task is to summarize and keep all the key information.\
+      Kepp the maximum length of summary wihin {} number of tokens."
+    final_summarizer_llm_system_role: "You are an expert text summarizer. You will receive a text and your task is to give a comprehensive summary and keep all the key information."
+
+
+splitter_config:
+  chunk_size: 1500
+  chunk_overlap: 500
+
+retrieval_config:
+  k: 3
+
+serve:
+  port: 8000
+
+memory:
+  number_of_q_a_pairs: 2
+
+
+  

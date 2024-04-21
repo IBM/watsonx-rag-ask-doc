@@ -1,77 +1,83 @@
-<!-- This should be the location of the title of the repository, normally the short name -->
-# repo-template
+# Ask-DOC: Retrieval Augmented generation (RAG) chatbot using IBM Watsox AI Model, Langchain, ChromaDB, and Gradio
 
-<!-- Build Status, is a great thing to have at the top of your repository, it shows that you take your CI/CD as first class citizens -->
-<!-- [![Build Status](https://travis-ci.org/jjasghar/ibm-cloud-cli.svg?branch=master)](https://travis-ci.org/jjasghar/ibm-cloud-cli) -->
+**ASK-DOC** supports PDF files.
 
-<!-- Not always needed, but a scope helps the user understand in a short sentance like below, why this repo exists -->
-## Scope
+**The chatbot offers versatile usage through three different methods:**
 
-The purpose of this project is to provide a template for new open source repositories.
+1. **Offline Documents**: Engage with documents that you've pre-processed and vectorized. These documents can be seamlessly integrated into your chat sessions.
+2. **Real-time Uploads:** Easily upload documents during your chat sessions, allowing the chatbot to process and respond to the content on-the-fly.
+3. **Summarization Requests:** Request the chatbot to provide a comprehensive summary of an entire PDF or document in a single interaction, streamlining information retrieval.
 
-<!-- A more detailed Usage or detailed explaination of the repository here -->
-## Usage
+To employ any of these methods, simply configure the appropriate settings in the "RAG with" dropdown menu within the chatbot interface. Tailor your interactions with documents to suit your preferences and needs efficiently.
 
-This repository contains some example best practices for open source repositories:
+- The project provides guidance on configuring various settings, such as adjusting the GPT model's temperature for optimal performance.
+- The user interface is crafted with gradio, ensuring an intuitive and user-friendly experience.
+- The model incorporates memory, retaining user Q&As for an enhanced and personalized user experience.
+- For each response, you can access the retrieved content along with the option to view the corresponding PDF.
 
-* [LICENSE](LICENSE)
-* [README.md](README.md)
-* [CONTRIBUTING.md](CONTRIBUTING.md)
-* [MAINTAINERS.md](MAINTAINERS.md)
-<!-- A Changelog allows you to track major changes and things that happen, https://github.com/github-changelog-generator/github-changelog-generator can help automate the process -->
-* [CHANGELOG.md](CHANGELOG.md)
+## ASK-DOC User Interface
 
-> These are optional
+<div align="center">
+  <img src="images/UI.png" alt="Ask-DOC UI">
+</div>
 
-<!-- The following are OPTIONAL, but strongly suggested to have in your repository. -->
-* [dco.yml](.github/dco.yml) - This enables DCO bot for you, please take a look https://github.com/probot/dco for more details.
-* [travis.yml](.travis.yml) - This is a example `.travis.yml`, please take a look https://docs.travis-ci.com/user/tutorial/ for more details.
+## Project Schema
 
-These may be copied into a new or existing project to make it easier for developers not on a project team to collaborate.
+<div align="center">
+  <img src="images/Schema.png" alt="Schema">
+</div>
 
-<!-- A notes section is useful for anything that isn't covered in the Usage or Scope. Like what we have below. -->
-## Notes
+- NOTE: This project is currently set up as a **demo**. As such, the document management is simplified and not suitable for production environments.
 
-**NOTE: While this boilerplate project uses the Apache 2.0 license, when
-establishing a new repo using this template, please use the
-license that was approved for your project.**
+## Document Storage
 
-**NOTE: This repository has been configured with the [DCO bot](https://github.com/probot/dco).
-When you set up a new repository that uses the Apache license, you should
-use the DCO to manage contributions. The DCO bot will help enforce that.
-Please contact one of the IBM GH Org stewards.**
+Documents are stored in two separate folders within the `data` directory:
 
-<!-- Questions can be useful but optional, this gives you a place to say, "This is how to contact this project maintainers or create PRs -->
-If you have any questions or issues you can create a new [issue here][issues].
+- `data/docs_2`: For files that you want to **upload**.
+- `data/docs`: For files that should be **processed in advance**.
 
-Pull requests are very welcome! Make sure your patches are well tested.
-Ideally create a topic branch for every separate change you make. For
-example:
+## Database Creation
 
-1. Fork the repo
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Added some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
+Vector databases (vectorDBs) are generated within the `data` folder, facilitating the project's functionality.
 
-## License
+## Running the Project
 
-All source files must include a Copyright and License header. The SPDX license header is 
-preferred because it can be easily scanned.
+To run the projects, you will need to install the required libraries. Follow the steps below to get started:
 
-If you would like to see the detailed LICENSE click [here](LICENSE).
+1. Clone the repository and navigate to the project directory.
 
-```text
-#
-# Copyright IBM Corp. {Year project was created} - {Current Year}
-# SPDX-License-Identifier: Apache-2.0
-#
 ```
-## Authors
+git clone https://github.com/IBM/watsonx-rag-ask-doc.git
+cd <yourproject>
+```
 
-Optionally, you may include a list of authors, though this is redundant with the built-in
-GitHub list of contributors.
+2. Create a new virtual environment using a tool like virtualenv or conda, and activate the environment:
 
-- Author: New OpenSource IBMer <new-opensource-ibmer@ibm.com>
+```
+python3 -m venv <name_of_virtual_env>
+source /venv/bin/activate
+```
 
-[issues]: https://github.com/IBM/repo-template/issues/new
+3. Install the required libraries using the following commands:
+
+```
+pip install -r requirements.txt
+```
+
+4. Then
+
+```
+cd <to project directory>
+```
+
+5. Open configs/app_config.yml and fill your IBM WatsonX API Key
+
+```
+genai_api_key: <IBM WatsonX API Key>
+```
+
+6. Run the application
+
+```
+python src/askdoc.py
+```
